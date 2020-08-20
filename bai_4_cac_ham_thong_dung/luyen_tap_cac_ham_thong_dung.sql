@@ -19,13 +19,17 @@ insert into text_ham value (4,"Huong",20,"CK",450000);
 select*from text_ham;
 
 -- truy van du lieu
-select*
+
+-- 1.Viết câu lệnh hiện thị tất cả các dòng có tên là Huong
+select *
 from text_ham 
 where `name`="Huong";
 
+-- 2.Viết câu lệnh lấy ra tổng số tiền của Huong 
 select sum(price) 
 from text_ham 
 where `name`="Huong";
 
+-- 3.Viết câu lệnh lấy ra tên danh sách của tất cả học viên, không trùng lặp
 select distinct id,`name`,age,course
 from text_ham;
