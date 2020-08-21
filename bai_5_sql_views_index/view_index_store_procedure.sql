@@ -44,6 +44,33 @@ drop view product_view;
 
 -- 3.1 Tạo store procedure lấy tất cả thông tin của tất cả các sản phẩm trong bảng product:
 
-create procedure store_procedure as
-select *
-from products;
+-- DELIMITER //
+
+-- CREATE PROCEDURE findAllCustomers()
+
+-- BEGIN
+
+--   SELECT * FROM customers;
+
+-- END //
+
+-- DELIMITER ;
+
+-- Sửa procedure
+use classicmodels;
+DELIMITER //
+
+drop procedure if exists `findAllCustomers`//
+
+create procedure findAllCustomers()
+
+begin
+
+   select *  from customers where customerNumber = 175;
+
+end; //
+
+DELIMITER ;
+
+-- Cách gọi procedure
+call findAllCustomers();
