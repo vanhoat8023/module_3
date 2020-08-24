@@ -276,3 +276,25 @@ from khach_hang;
 select *
 from khach_hang
 group by ho_ten;
+
+-- 9.	Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng trong năm 2019 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng
+select month(hop_dong.ngay_lam_hop_dong) as tháng, count(hop_dong.id_hop_dong) as 'số lượng', sum(hop_dong.tong_tien) as 'doanh thu'
+from hop_dong
+where year(hop_dong.ngay_lam_hop_dong) = '2019'
+group by month(hop_dong.ngay_lam_hop_dong);
+
+-- 10.	Hiển thị thông tin tương ứng với từng Hợp đồng thì đã sử dụng bao nhiêu Dịch vụ đi kèm. Kết quả hiển thị bao gồm IDHopDong,
+-- NgayLamHopDong, NgayKetthuc, TienDatCoc, SoLuongDichVuDiKem (được tính dựa trên việc count các IDHopDongChiTiet).
+select hop_dong.id_hop_dong, hop_dong.ngay_lam_hop_dong, hop_dong.ngay_ket_thuc, hop_dong.tien_dat_coc, hop_dong_chi_tiet.so_luong
+from hop_dong
+left join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong=hop_dong.id_hop_dong;
+
+-- 11.	Hiển thị thông tin các Dịch vụ đi kèm đã được sử dụng bởi những Khách hàng có TenLoaiKhachHang là “Diamond” và có địa chỉ là “Vinh” hoặc “Quảng Ngãi”.
+select * from khach_hang;
+select dich_vu_di_kem.id_dich_vu_di_kem, dich_vu_di_kem.ten_dich_vu_di_kem, dich_vu_di_kem.gia, dich_vu_di_kem.don_vi, dich_vu_di_kem.trang_thai_kha_dung, loai_khach.ten_loai_khach, khach_hang.dia_chi
+from dich_vu_di_kem 
+left join hop_dong_chi_tiet on hop_dong_chi_tiet.id_dich_vu_di_kem=dich_vu_di_kem.id_dich_vu_di_kem
+left join hop_dong on hop_dong.id_hop_dong=hop_dong_chi_tiet.id_hop_dong
+left join khach_hang on khach_hang.id_khach_hang=hop_dong.id_khach_hang
+left join loai_khach on loai_khach.id_loai_khach=khach_hang.id_loai_khach
+where loai_khach.ten_loai_khach='diamond' and (khach_hang.dia_chi='đà nẵng'or khach_hang.dia_chi='quảng trị');
