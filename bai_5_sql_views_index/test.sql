@@ -17,7 +17,7 @@ create table staff (
 );
 
 insert into customer value (1,"hoat",23);
-
+drop table customer;
 -- hien thi bang
 select *
 from customer;

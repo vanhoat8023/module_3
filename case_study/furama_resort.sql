@@ -248,5 +248,31 @@ group by khach_hang.id_khach_hang;
 -- 5.	Hiển thị IDKhachHang, HoTen, TenLoaiKhach, IDHopDong, TenDichVu, NgayLamHopDong, NgayKetThuc, TongTien 
 -- (Với TongTien được tính theo công thức như sau: ChiPhiThue + SoLuong*Gia, với SoLuong và Giá là từ bảng DichVuDiKem)
 --  cho tất cả các Khách hàng đã từng đặt phỏng. (Những Khách hàng nào chưa từng đặt phòng cũng phải hiển thị ra).
-select * from khach_hang;
 
+-- 6.	Hiển thị IDDichVu, TenDichVu, DienTich, ChiPhiThue, TenLoaiDichVu của tất cả các loại Dịch vụ chưa từng được Khách hàng
+-- thực hiện đặt từ quý 1 của năm 2019 (Quý 1 là tháng 1, 2, 3).
+select dich_vu.id_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich_vu.chi_phi_thue, hop_dong.ngay_lam_hop_dong, loai_dich_vu.ten_loai_dich_vu
+from dich_vu
+inner join loai_dich_vu on loai_dich_vu.id_loai_dich_vu = dich_vu.id_loai_dich_vu
+left join hop_dong on hop_dong.id_dich_vu = dich_vu.id_dich_vu
+where (datediff(hop_dong.ngay_lam_hop_dong, '2019-01-01')<0) and (datediff(hop_dong.ngay_lam_hop_dong, '2019-03-31')>0);
+
+-- 7.	Hiển thị thông tin IDDichVu, TenDichVu, DienTich, SoNguoiToiDa, ChiPhiThue, TenLoaiDichVu của tất cả các loại dịch vụ
+-- đã từng được Khách hàng đặt phòng trong năm 2018 nhưng chưa từng được Khách hàng đặt phòng  trong năm 2019
+
+select dich_vu.id_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich_vu.so_nguoi_toi_da,dich_vu.chi_phi_thue, loai_dich_vu.ten_loai_dich_vu, hop_dong.ngay_lam_hop_dong
+from dich_vu
+inner join loai_dich_vu on loai_dich_vu.id_loai_dich_vu = dich_vu.id_loai_dich_vu
+left join hop_dong on hop_dong.id_dich_vu = dich_vu.id_dich_vu
+where (hop_dong.ngay_lam_hop_dong between 2018/1/1 and 2018/12/31) and not (hop_dong.ngay_lam_hop_dong between 2019/1/1 and 2019/12/31);
+
+-- 8.	Hiển thị thông tin HoTenKhachHang có trong hệ thống, với yêu cầu HoThenKhachHang không trùng nhau.
+
+-- cách 1:
+select distinct ho_ten
+from khach_hang;
+
+-- cách 2:
+select *
+from khach_hang
+group by ho_ten;
