@@ -250,6 +250,14 @@ order by count(hop_dong.id_hop_dong);
 -- (Với TongTien được tính theo công thức như sau: ChiPhiThue + SoLuong*Gia, với SoLuong và Giá là từ bảng DichVuDiKem)
 --  cho tất cả các Khách hàng đã từng đặt phỏng. (Những Khách hàng nào chưa từng đặt phòng cũng phải hiển thị ra).
 
+select khach_hang.id_khach_hang, khach_hang.ho_ten, loai_khach.ten_loai_khach, hop_dong.id_hop_dong, dich_vu.ten_dich_vu, hop_dong.ngay_lam_hop_dong, hop_dong.ngay_ket_thuc, (dich_vu.chi_phi_thue + dich_vu_di_kem.don_vi*dich_vu_di_kem.gia) as 'Tổng Tiền'
+from khach_hang
+	left join hop_dong on khach_hang.id_khach_hang = hop_dong.id_khach_hang
+	left join loai_khach on loai_khach.id_loai_khach = khach_hang.id_loai_khach
+	left join dich_vu on dich_vu.id_dich_vu = hop_dong.id_dich_vu
+	left join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
+	left join dich_vu_di_kem on dich_vu_di_kem.id_dich_vu_di_kem = hop_dong_chi_tiet.id_dich_vu_di_kem;
+
 -- 6.	Hiển thị IDDichVu, TenDichVu, DienTich, ChiPhiThue, TenLoaiDichVu của tất cả các loại Dịch vụ chưa từng được Khách hàng
 -- thực hiện đặt từ quý 1 của năm 2019 (Quý 1 là tháng 1, 2, 3).
 select dich_vu.id_dich_vu, dich_vu.ten_dich_vu, dich_vu.dien_tich, dich_vu.chi_phi_thue, hop_dong.ngay_lam_hop_dong, loai_dich_vu.ten_loai_dich_vu
@@ -336,10 +344,35 @@ from hop_dong_chi_tiet);
 
 -- 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất. Thông tin hiển thị bao gồm IDHopDong, TenLoaiDichVu, TenDichVuDiKem, SoLanSuDung.
 
+select dich_vu_di_kem.gia, dich_vu_di_kem.ten_dich_vu_di_kem, sum(hop_dong_chi_tiet.so_luong) as so_luong
+from hop_dong_chi_tiet
+left join dich_vu_di_kem on dich_vu_di_kem.id_dich_vu_di_kem=hop_dong_chi_tiet.id_dich_vu_di_kem
+group by dich_vu_di_kem.ten_dich_vu_di_kem
+having so_luong=1;
+
+select*from hop_dong_chi_tiet;
+
 -- 15.	Hiển thi thông tin của tất cả nhân viên bao gồm IDNhanVien, HoTen, TrinhDo, TenBoPhan, SoDienThoai, DiaChi mới chỉ lập được tối đa 3 hợp đồng từ năm 2018 đến 2019.
 select nhan_vien.id_nhan_vien, nhan_vien.ho_ten, trinh_do.trinh_do, bo_phan.ten_bo_phan, nhan_vien.sdt, nhan_vien.dia_chi
 from hop_dong
 left join nhan_vien on nhan_vien.id_nhan_vien=hop_dong.id_nhan_vien
 left join bo_phan on bo_phan.id_bo_phan=nhan_vien.id_bo_phan
 left join trinh_do on trinh_do.id_trinh_do=nhan_vien.id_trinh_do
-where 
+where year(hop_dong.ngay_lam_hop_dong)=2018 or year(hop_dong.ngay_lam_hop_dong)=2019
+group by nhan_vien.id_nhan_vien
+having count(nhan_vien.id_nhan_vien)<=3;
+
+-- 16.	Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2017 đến năm 2019.
+
+SET FOREIGN_KEY_CHECKS=0;
+delete from nhan_vien
+where nhan_vien.id_nhan_vien not in(select nhan_vien.id_nhan_vien
+									from nhan_vien
+                                    left join hop_dong on hop_dong.id_nhan_vien=nhan_vien.id_nhan_vien
+                                    where year(hop_dong.ngay_lam_hop_dong) in(2018,2019,2020));
+SET FOREIGN_KEY_CHECKS=1;
+
+-- 17.	Cập nhật thông tin những khách hàng có TenLoaiKhachHang từ  Platinium lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng
+-- với tổng Tiền thanh toán trong năm 2019 là lớn hơn 10.000.000 VNĐ.
+
+
