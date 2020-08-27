@@ -366,13 +366,34 @@ having count(nhan_vien.id_nhan_vien)<=3;
 
 SET FOREIGN_KEY_CHECKS=0;
 delete from nhan_vien
-where nhan_vien.id_nhan_vien not in(select nhan_vien.id_nhan_vien
-									from nhan_vien
-                                    left join hop_dong on hop_dong.id_nhan_vien=nhan_vien.id_nhan_vien
-                                    where year(hop_dong.ngay_lam_hop_dong) in(2018,2019,2020));
+where nhan_vien.id_nhan_vien not in(select *
+									from(select nhan_vien.id_nhan_vien
+										 from nhan_vien
+										 left join hop_dong on hop_dong.id_nhan_vien=nhan_vien.id_nhan_vien
+										 where year(hop_dong.ngay_lam_hop_dong) in(2018,2019,2020)) as abc);
 SET FOREIGN_KEY_CHECKS=1;
+select *
+from nhan_vien;
 
 -- 17.	Cập nhật thông tin những khách hàng có TenLoaiKhachHang từ  Platinium lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng
 -- với tổng Tiền thanh toán trong năm 2019 là lớn hơn 10.000.000 VNĐ.
+update khach_hang
+set khach_hang.id_loai_khach = 1
+where id_khach_hang in (
+	select * 
+    from (select khach_hang.id_khach_hang from khach_hang
+	join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
+	where year(hop_dong.ngay_lam_hop_dong) = 2019 and hop_dong.tong_tien >= 10000000 and khach_hang.id_loai_khach = 2 ) as abc
+    );
+-- 18.	Xóa những khách hàng có hợp đồng trước năm 2016 (chú ý ràngbuộc giữa các bảng).
 
+SET FOREIGN_KEY_CHECKS=0;
+delete from khach_hang
+where khach_hang.id_khach_hang in(select*
+								  from(select khach_hang.id_khach_hang
+									 from khach_hang
+									 left join hop_dong on hop_dong.id_khach_hang=khach_hang.id_khach_hang
+									 where year(hop_dong.ngay_lam_hop_dong)<2016) as ac);
+
+select*from hop_dong;
 
