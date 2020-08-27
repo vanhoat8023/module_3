@@ -385,6 +385,7 @@ where id_khach_hang in (
 	join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
 	where year(hop_dong.ngay_lam_hop_dong) = 2019 and hop_dong.tong_tien >= 10000000 and khach_hang.id_loai_khach = 2 ) as abc
     );
+    
 -- 18.	Xóa những khách hàng có hợp đồng trước năm 2016 (chú ý ràngbuộc giữa các bảng).
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -395,5 +396,10 @@ where khach_hang.id_khach_hang in(select*
 									 left join hop_dong on hop_dong.id_khach_hang=khach_hang.id_khach_hang
 									 where year(hop_dong.ngay_lam_hop_dong)<2016) as ac);
 
-select*from hop_dong;
+select*from hop_dong_chi_tiet;
+
+-- 19.	Cập nhật giá cho các Dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2019 lên gấp đôi.
+
+-- 20.	Hiển thị thông tin của tất cả các Nhân viên và Khách hàng có trong hệ thống, thông tin hiển thị bao gồm ID (IDNhanVien, IDKhachHang),
+-- HoTen, Email, SoDienThoai, NgaySinh, DiaChi.
 
