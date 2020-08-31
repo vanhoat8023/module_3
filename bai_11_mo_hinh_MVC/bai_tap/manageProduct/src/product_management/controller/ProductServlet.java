@@ -1,8 +1,8 @@
 package product_management.controller;
 
-import product_management.bo.ElementBO;
-import product_management.bo.ElementBOImplement;
-import product_management.model.Element;
+import product_management.bo.ProductBO;
+import product_management.bo.ProductBOImplement;
+import product_management.model.Product;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "ElementServlet", urlPatterns = {"", "/elements"} )
-public class ElementServlet extends HttpServlet {
+public class ProductServlet extends HttpServlet {
 
-    private ElementBO elementBO = new ElementBOImplement();
+    private ProductBO elementBO = new ProductBOImplement();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -68,7 +68,7 @@ public class ElementServlet extends HttpServlet {
 
     private void viewElement(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-        Element element = this.elementBO.findById(id);
+        Product element = this.elementBO.findById(id);
         request.setAttribute("element", element);
 
         //Get dispatcher for forwarding to jsp page
@@ -84,7 +84,7 @@ public class ElementServlet extends HttpServlet {
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-        Element element = this.elementBO.findById(id);
+        Product element = this.elementBO.findById(id);
         request.setAttribute("element", element);
 
         //Get dispatcher for forwarding to jsp page
@@ -100,7 +100,7 @@ public class ElementServlet extends HttpServlet {
 
     private void deleteElement(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-        Element element = this.elementBO.findById(id);
+        Product element = this.elementBO.findById(id);
 
 
         //delete element from element list
@@ -116,7 +116,7 @@ public class ElementServlet extends HttpServlet {
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-        Element element = elementBO.findById(id);
+        Product element = elementBO.findById(id);
         request.setAttribute("element", element);
 
         //Get dispatcher for forwarding to jsp page
@@ -139,7 +139,7 @@ public class ElementServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         //Setter for updating
-        Element element = this.elementBO.findById(id);
+        Product element = this.elementBO.findById(id);
         element.setName(a);
         element.setPrice(b);
         element.setDesc(c);
@@ -181,7 +181,7 @@ public class ElementServlet extends HttpServlet {
         int id = elementBO.getNextId();
 
         //create new element
-        Element element = new Element(id, a,b,c,d);
+        Product element = new Product(id, a,b,c,d);
         this.elementBO.save(element);
 
         //Get dispatcher
@@ -196,7 +196,7 @@ public class ElementServlet extends HttpServlet {
     }
 
     private void listElements(HttpServletRequest request, HttpServletResponse response){
-        List<Element> elements = this.elementBO.findAll();
+        List<Product> elements = this.elementBO.findAll();
         request.setAttribute("elements", elements);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/element/list.jsp");
@@ -209,7 +209,7 @@ public class ElementServlet extends HttpServlet {
 
     private void findElement(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
-        List<Element> elements = this.elementBO.findByName(name);
+        List<Product> elements = this.elementBO.findByName(name);
         request.setAttribute("elements", elements);
         request.setAttribute("found_name", name);
 

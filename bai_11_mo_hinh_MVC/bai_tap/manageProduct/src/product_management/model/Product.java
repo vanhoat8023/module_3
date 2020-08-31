@@ -1,16 +1,16 @@
 package product_management.model;
 
-public class Element {
+public class Product {
     private int id;
     private String name;
     private String price;
     private String desc;
     private String producer;
 
-    public Element() {
+    public Product() {
     }
 
-    public Element(int id, String name, String price, String desc, String producer) {
+    public Product(int id, String name, String price, String desc, String producer) {
         this.id = id;
         this.name = name;
         this.price = price;

@@ -10,12 +10,6 @@
 <html>
 <head>
     <title>Show List</title>
-    <style>
-        a {
-            text-decoration: none;
-            color: black;
-        }
-    </style>
 </head>
 <body>
 
@@ -46,11 +40,9 @@
 </table>
 <br>
 <form method="post" action="/elements?action=search">
-    <fieldset style="width: 45%">
         <input type="text" name="name" placeholder="Input element name">
         <input type="submit" value="Search">
         <button><a href="/elements">Back To Element List</a></button>
-    </fieldset>
 </form>
 </body>
 </html>

@@ -1,36 +1,36 @@
 package product_management.bo;
 
-import product_management.dao.ElementDAO;
-import product_management.dao.ElementDAOImplement;
-import product_management.model.Element;
+import product_management.dao.ProductDAO;
+import product_management.dao.ProductDAOImplement;
+import product_management.model.Product;
 
 import java.util.List;
 
-public class ElementBOImplement implements ElementBO {
-    ElementDAO elementDAO = new ElementDAOImplement();
+public class ProductBOImplement implements ProductBO {
+    ProductDAO elementDAO = new ProductDAOImplement();
     @Override
-    public List<Element> findAll() {
+    public List<Product> findAll() {
         return elementDAO.findAll();
     }
 
     @Override
-    public void save(Element element) {
+    public void save(Product element) {
         elementDAO.save(element);
 
     }
 
     @Override
-    public Element findById(int id) {
+    public Product findById(int id) {
         return elementDAO.findById(id);
     }
 
     @Override
-    public List<Element> findByName(String nameString) {
+    public List<Product> findByName(String nameString) {
         return elementDAO.findByName(nameString);
     }
 
     @Override
-    public void update(int id, Element element) {
+    public void update(int id, Product element) {
         elementDAO.update(id, element);
     }
 
