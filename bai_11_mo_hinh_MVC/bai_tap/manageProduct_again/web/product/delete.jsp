@@ -16,10 +16,12 @@
 <p>
     <a href="/product">Back to element list</a>
 </p>
-<form method="post" action="delete">
+<form method="post" action="/product">
+    <input type="hidden" name="action" value="delete">
     <h3>bạn muốn xóa sản phẩm này</h3>
     <h3>thông tin sản phẩm</h3>
     <table>
+        <input type="hidden" name="id" value="${product.id}">
         <tr>
             <td>Name: </td>
             <td>${product.name}</td>

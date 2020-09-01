@@ -35,6 +35,7 @@
     </c:forEach>
 </table>
 <form method="post" action="/product?action=search">
+    <input type="hidden" name="action" value="search">
     <input type="text" name="name" placeholder="input name product">
     <input type="submit" value="search">
     <button><a href="/product">back to menu</a></button>

@@ -27,15 +27,15 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product findById(int id) {
-        return productList.get(id);
+        return productList.get(id-1);
     }
 
     @Override
-    public List<Product> findByName(String nameString) {
+    public List<Product> findByName(String name) {
         List<Product> productsList=new ArrayList<>(productList);
         List<Product> productsFound=new ArrayList<>();
         for (Product e:productsList){
-            if (e.getName().toLowerCase().contains(nameString.toLowerCase())){
+            if (e.getName().toLowerCase().contains(name.toLowerCase())){
                 productsFound.add(e);
             }
         }
@@ -44,12 +44,12 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void update(int id, Product product) {
-        productList.add(id,product);
+        productList.set(id-1,product);
     }
 
     @Override
     public void remove(int id) {
-        productList.remove(id);
+        productList.remove(id-1);
     }
 
     @Override

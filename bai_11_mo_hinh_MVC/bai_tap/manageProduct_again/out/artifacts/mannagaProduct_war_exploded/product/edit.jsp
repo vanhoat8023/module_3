@@ -16,9 +16,11 @@
 <p>
     <a href="/product">Back to Element List</a>
 </p>
-<form method="post" action="edit">
+<form method="post" action="/product">
+    <input type="hidden" name="action" value="edit">
     <h3>edit product</h3>
     <table>
+        <input type="hidden" name="id" value="${product.id}">
         <tr>
             <td>Name:</td>
             <td><input type="text" name="a" id="a" value="${product.name}"></td>

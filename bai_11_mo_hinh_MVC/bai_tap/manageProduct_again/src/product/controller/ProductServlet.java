@@ -35,16 +35,18 @@ public class ProductServlet extends HttpServlet {
                 break;
             case  "search":
                 searchProduct(request, response);
+                break;
+            default:
+                break;
         }
     }
 
     private void searchProduct(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
-        List<Product> elements = this.productBo.findByName(name);
-        request.setAttribute("elements", elements);
-        request.setAttribute("found_name", name);
+        List<Product> products = this.productBo.findByName(name);
+        request.setAttribute("product", products);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/element/list.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/product/list.jsp");
         try {
             requestDispatcher.forward(request,response);
             //response.sendRedirect("/elements");
@@ -61,12 +63,7 @@ public class ProductServlet extends HttpServlet {
         //delete element from element list
         this.productBo.remove(id);
 
-        //redirect to home page
-        try {
-            response.sendRedirect("/product");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        showProductList(request, response);
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) {
@@ -75,15 +72,10 @@ public class ProductServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product= productBo.findById(id);
         product.setName(a);
-        product.getPrice(b);
+        product.setPrice(b);
         productBo.update(id,product);
         request.setAttribute("product", product);
-        try {
-            //dispatcher.forward(request, response);
-            response.sendRedirect("/product");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        showProductList(request, response);
     }
 
     private void createProduct(HttpServletRequest request, HttpServletResponse response) {
