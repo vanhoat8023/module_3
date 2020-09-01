@@ -23,7 +23,7 @@ public class ProductDAOImplement implements ProductDAO {
     }
 
     @Override
-    public void save(Product element) {
+    public void save(Product element){
         elements.put(element.getId(), element);
     }
 
@@ -41,7 +41,6 @@ public class ProductDAOImplement implements ProductDAO {
                 elementFound.add(element);
             }
         }
-
         return elementFound;
     }
 

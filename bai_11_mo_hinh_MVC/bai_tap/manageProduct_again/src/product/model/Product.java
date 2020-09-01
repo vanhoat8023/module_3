@@ -1,11 +1,11 @@
 package product.model;
 
 public class Product {
-    private final int price;
+    private String price;
     private int id;
     private String name;
 
-    public Product(int id, String name, int price) {
+    public Product(int id, String name, String price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -27,7 +27,15 @@ public class Product {
         this.name = name;
     }
 
-    public int getPrice() {
+    public String  getPrice(String b) {
         return price;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

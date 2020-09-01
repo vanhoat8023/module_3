@@ -7,25 +7,42 @@ import product.model.Product;
 import java.util.List;
 
 public class ProductBoImpl implements ProductBo{
-    private ProductDao productDao = new ProductDaoImpl() {
+    ProductDao productDao = new ProductDaoImpl() {
     };
+
     @Override
     public List<Product> findAll() {
         return productDao.findAll();
     }
 
     @Override
-    public boolean save(Product product) {
-        return  productDao.save(product);
+    public void save(Product product) {
+        productDao.save(product);
     }
 
     @Override
     public Product findById(int id) {
-        return null;
+        return productDao.findById(id);
     }
 
     @Override
-    public boolean validateId() {
-        return false;
+    public List<Product> findByName(String nameString) {
+        return productDao.findByName(nameString);
+    }
+
+    @Override
+    public void update(int id, Product product) {
+        productDao.update(id,product);
+    }
+
+
+    @Override
+    public void remove(int id) {
+        productDao.remove(id);
+    }
+
+    @Override
+    public int getNextId() {
+        return productDao.getNextId();
     }
 }

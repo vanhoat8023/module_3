@@ -6,9 +6,15 @@ import java.util.List;
 
 public interface ProductBo {
     List<Product> findAll();
-    boolean save(Product product);
+    void save(Product product);
 
     Product findById(int id);
 
-    boolean validateId();
+    List<Product> findByName(String nameString);
+
+    void update(int id, Product element);
+
+    void remove(int id);
+
+    int getNextId();
 }

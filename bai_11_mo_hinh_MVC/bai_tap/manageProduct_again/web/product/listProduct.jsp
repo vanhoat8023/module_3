@@ -20,16 +20,25 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Address</th>
+        <th>Price</th>
+        <th>Exit</th>
+        <th>Delete</th>
     </tr>
     <c:forEach var="product" items="${productServlet}">
         <tr>
             <td>${product.id}</td>
             <td>${product.name}</td>
             <td>${product.price}</td>
+            <td><a href="/product?action=delete&id=${product.id}">delete</a></td>
+            <td><a href="/product?action=edit&id=${product.id}">edit</a></td>
         </tr>
     </c:forEach>
 </table>
+<form method="post" action="/product?action=search">
+    <input type="text" name="name" placeholder="input name product">
+    <input type="submit" value="search">
+    <button><a href="/product">back to menu</a></button>
+</form>
 
 </body>
 </html>

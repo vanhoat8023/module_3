@@ -25,7 +25,78 @@ public class ProductServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
-//                createProduct(request, response);
+                createProduct(request, response);
+                break;
+            case "edit":
+                updateProduct(request,response);
+                break;
+            case "delete":
+                deleteProduct(request, response);
+                break;
+            case  "search":
+                searchProduct(request, response);
+        }
+    }
+
+    private void searchProduct(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        List<Product> elements = this.productBo.findByName(name);
+        request.setAttribute("elements", elements);
+        request.setAttribute("found_name", name);
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/element/list.jsp");
+        try {
+            requestDispatcher.forward(request,response);
+            //response.sendRedirect("/elements");
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = this.productBo.findById(id);
+
+
+        //delete element from element list
+        this.productBo.remove(id);
+
+        //redirect to home page
+        try {
+            response.sendRedirect("/product");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) {
+        String a=request.getParameter("a");
+        String b=request.getParameter("b");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product= productBo.findById(id);
+        product.setName(a);
+        product.getPrice(b);
+        productBo.update(id,product);
+        request.setAttribute("product", product);
+        try {
+            //dispatcher.forward(request, response);
+            response.sendRedirect("/product");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createProduct(HttpServletRequest request, HttpServletResponse response) {
+        String a=request.getParameter("a");
+        String b=request.getParameter("b");
+        int id=productBo.getNextId();
+        Product product= new Product(id,a,b);
+        this.productBo.save(product);
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/product/create.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -41,10 +112,10 @@ public class ProductServlet extends HttpServlet {
                 showCreateForm(request, response);
                 break;
             case "edit":
-//                showEditForm(request, response);
+                showEditForm(request, response);
                 break;
             case "delete":
-//                showDeleteForm(request,response);
+                showDeleteForm(request,response);
                 break;
             case "view":
 //                viewElement(request, response);
@@ -54,8 +125,39 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = productBo.findById(id);
+        request.setAttribute("product", product);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/delete.jsp");
+
+        //forward content to jsp page
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
+        int id= Integer.parseInt(request.getParameter("id"));
+        Product product=this.productBo.findById(id);
+        request.setAttribute("product", product);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/edit.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher=request.getRequestDispatcher("/product/create.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
