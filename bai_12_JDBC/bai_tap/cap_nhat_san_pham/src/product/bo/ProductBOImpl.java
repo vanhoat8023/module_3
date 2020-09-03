@@ -20,11 +20,26 @@ public class ProductBOImpl implements ProductBO {
 
     @Override
     public Product findById(int id) {
-        return null;
+        return productDAO.findById(id);
+    }
+
+    @Override
+    public int update(Product product) {
+       return productDAO.update(product);
+    }
+
+    @Override
+    public void remove(int id) {
+        productDAO.remove(id);
     }
 
     @Override
     public boolean validateId() {
         return false;
+    }
+
+    @Override
+    public int nextId() {
+        return productDAO.nextId();
     }
 }

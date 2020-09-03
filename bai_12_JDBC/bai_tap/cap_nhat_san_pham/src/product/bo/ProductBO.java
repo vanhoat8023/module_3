@@ -11,5 +11,8 @@ public interface ProductBO {
 
     Product findById(int id);
 
+    int update(Product product);
+    void remove(int id);
     boolean validateId();
+    int nextId();
 }

@@ -13,6 +13,7 @@
 </head>
 <body>
 <table>
+    <a href="/product?action=create">thêm mới sản phẩm</a>
     <thead>
     <tr>
         <th>id</th>
@@ -28,8 +29,8 @@
             <td scope="row">${product.id}</td>
             <td>${product.name}</td>
             <td>${product.address}</td>
-            <td><a href="/student?action=edit&id=${student.id}">edit</a></td>
-            <td><a href="/student?action=delete&id=${student.id}">delete</a></td>
+            <td><a href="/product?action=edit&id=${product.id}">edit</a></td>
+            <td><a href="/product?action=delete&id=${product.id}">delete</a></td>
         </tr>
     </c:forEach>
     </tbody>
