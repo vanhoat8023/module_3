@@ -86,7 +86,7 @@ public class ProductDAOImpl implements ProductDAO {
         int count = 0;
         if (connection != null) {
             try {
-                callableStatement = connection.prepareCall("call update_student_by_id(?,?,?);");
+                callableStatement = connection.prepareCall("{call update_student_by_id(?,?,?)}");
                 callableStatement.setInt(1, product.getId());
                 callableStatement.setString(2, product.getName());
                 callableStatement.setString(3, product.getAddress());

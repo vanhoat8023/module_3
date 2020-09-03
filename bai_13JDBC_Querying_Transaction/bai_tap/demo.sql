@@ -1,1 +1,1 @@
-users
+select*from users;

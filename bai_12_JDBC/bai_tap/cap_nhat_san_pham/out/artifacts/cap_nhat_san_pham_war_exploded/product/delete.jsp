@@ -23,8 +23,8 @@
             <td>${product.name}</td>
         </tr>
         <tr>
-            <td>Price: </td>
-            <td>${product.price}</td>
+            <td>Address: </td>
+            <td>${product.address}</td>
         </tr>
         <tr>
             <td><a href="/product">Back to element list</a></td>

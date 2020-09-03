@@ -25,7 +25,7 @@ public class ProductServlet extends HttpServlet {
             case "create":
                 createProduct(request, response);
                 break;
-            case "update":
+            case "edit":
                 updateProduct(request,response);
                 break;
             case "delete":
