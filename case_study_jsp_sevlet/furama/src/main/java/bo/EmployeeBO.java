@@ -1,6 +1,6 @@
-package bo;
+package main.java.bo;
 
-import model.Employee;
+import main.java.model.Employee;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
-package controller;
+package main.java.controller;
 
-import bo.EmployeeBO;
-import bo.EmployeeBOImpl;
-import model.Employee;
+
+import main.java.bo.EmployeeBO;
+import main.java.bo.EmployeeBOImpl;
+import main.java.model.Employee;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,7 @@ import java.util.List;
 @javax.servlet.annotation.WebServlet(name = "EmployeeServlet", urlPatterns = {"", "employee"})
 public class EmployeeServlet extends javax.servlet.http.HttpServlet {
     EmployeeBO employeeBO= new EmployeeBOImpl();
-    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action= request.getParameter("action");
         if (action == null){
             action="";
@@ -23,7 +24,7 @@ public class EmployeeServlet extends javax.servlet.http.HttpServlet {
         }
     }
 
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action= request.getParameter("action");
         if (action== null){
             action="";

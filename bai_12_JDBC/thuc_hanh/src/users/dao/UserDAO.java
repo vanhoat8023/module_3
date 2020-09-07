@@ -1,6 +1,5 @@
 package users.dao;
 
-import com.codegym.model.User;
 import users.model.User;
 
 import java.sql.*;

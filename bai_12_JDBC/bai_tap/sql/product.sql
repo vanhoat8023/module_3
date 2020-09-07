@@ -8,4 +8,5 @@ address varchar(120) not null
 );
 insert into product(id,`name`,address) value (1,'hoat','quang binh'),
 (2,'tuan','quang binh');
+
 select * from product;
