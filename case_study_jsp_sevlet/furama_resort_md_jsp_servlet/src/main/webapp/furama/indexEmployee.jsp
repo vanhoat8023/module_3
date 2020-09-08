@@ -42,10 +42,10 @@
                     <a class="nav-link" href="/employee?action=listEmployee">Employee <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Customer</a>
+                    <a class="nav-link" href="/customer?action=listCustomer">Customer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Service</a>
+                    <a class="nav-link" href="/service?action=listService">Service</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Contract</a>

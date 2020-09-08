@@ -30,7 +30,17 @@ public class EmployeeServlet extends HttpServlet {
                 break;
             case "create":
                 createEmployee(request,response);
+                break;
+            case "delete":
+                deleteEmployee(request,response);
+                break;
         }
+    }
+
+    private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id1"));
+        employeeBO.remove(id);
+        showEmployee(request,response);
     }
 
     private void createEmployee(HttpServletRequest request, HttpServletResponse response) {
@@ -85,7 +95,23 @@ public class EmployeeServlet extends HttpServlet {
             case "edit":
                 showEditEmployee(request, response);
                 break;
+            case "delete":
+                showDeleteEmployee(request,response);
             default:employee(request,response);
+        }
+    }
+
+    private void showDeleteEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Employee employee=employeeBO.findById(id);
+        request.setAttribute("employee",employee);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/furama/delete.jsp");
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

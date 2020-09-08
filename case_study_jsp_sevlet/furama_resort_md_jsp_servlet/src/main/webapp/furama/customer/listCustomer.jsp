@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="bootstrap413/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="datatables/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" href="../bootstrap413/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../datatables/css/dataTables.bootstrap4.min.css"/>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -147,13 +147,13 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/employee">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="/employee?action=listEmployee">Employee</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="/customer?action=listCustomer">Customer</a>
             </li>
         </ul>
         <span class="navbar-text">
@@ -168,9 +168,9 @@
                 <div class="table-wrapper">
                     <div class="table-title">
                         <div class="row">
-                            <div class="col-sm-7"><h2>Employee</h2></div>
+                            <div class="col-sm-7"><h2>Customer</h2></div>
                             <div class="col-sm-2">
-                                <a href="/employee?action=create">
+                                <a href="/customer?action=create">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
                                 </a>
                             </div>
@@ -188,30 +188,31 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Birthday</th>
+                            <th>Gender</th>
                             <th>Id_card</th>
-                            <th>Salary</th>
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Address</th>
+                            <th>@</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="employee" items="${listEmployee}">
+                        <c:forEach var="customer" items="${listCustomer}">
                             <tr>
-                                <td>${employee.id}</td>
-                                <td>${employee.name}</td>
-                                <td>${employee.birthday}</td>
-                                <td>${employee.id_card}</td>
-                                <td>${employee.salary}</td>
-                                <td>${employee.phone}</td>
-                                <td>${employee.email}</td>
-                                <td>${employee.address}</td>
+                                <td>${customer.id}</td>
+                                <td>${customer.customer_name}</td>
+                                <td>${customer.customer_birthday}</td>
+                                <td>${customer.customer_gender}</td>
+                                <td>${customer.customer_id_card}</td>
+                                <td>${customer.customer_phone}</td>
+                                <td>${customer.customer_email}</td>
+                                <td>${customer.customer_address}</td>
                                 <td>
                                     <a href="/employee?action=view&id=${employee.id}" class="view" title="Add"
                                        data-toggle="tooltip"><i class="glyphicon">&#x2b;</i></a>
-                                    <a href="/employee?action=edit&id=${employee.id}" class="edit" title="Edit"
+                                    <a href="/customer?action=edit&id=${customer.id}" class="edit" title="Edit"
                                        data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                    <a href="/customer?action=delete&id=${customer.id}" class="delete" title="Delete" data-toggle="tooltip"><i
                                             class="material-icons">&#xE872;</i></a>
                                 </td>
                             </tr>
@@ -223,15 +224,15 @@
         </div>
     </div>
 </div>
-<script src="jquery/jquery-3.5.1.min.js"></script>
-<script src="datatables/js/jquery.dataTables.min.js"></script>
-<script src="datatables/dataTables.bootstrap4.min.js"></script>
+<script src="../jquery/jquery-3.5.1.min.js"></script>
+<script src="../datatables/js/jquery.dataTables.min.js"></script>
+<script src="../datatables/js/dataTables.bootstrap4.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#tableStudent').dataTable({
-            "dom": 'lrtip',
-            "lengthChange": false,
-            "pageLength": 4
+                "dom": 'lrtip',
+                "lengthChange": false,
+                "pageLength": 4
             }
         )
     });

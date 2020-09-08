@@ -112,8 +112,29 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public void remove(int id) {
-        findAll().remove(id-1);
+    public boolean remove(int id) {
+        boolean rowDelete=false;
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement preparedStatement = null;
+        if (connection != null) {
+            try {
+                preparedStatement = connection.prepareStatement("DELETE FROM employee WHERE employee_id = ?;");
+                preparedStatement.setInt(1, id);
+                rowDelete = preparedStatement.executeUpdate() > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (preparedStatement != null) {
+                        preparedStatement.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                DBConnection.close();
+            }
+        }
+        return rowDelete;
     }
 
     @Override

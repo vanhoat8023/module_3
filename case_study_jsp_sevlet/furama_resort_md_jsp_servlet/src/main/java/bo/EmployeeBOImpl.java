@@ -30,7 +30,7 @@ public class EmployeeBOImpl implements EmployeeBO {
 
     @Override
     public void remove(int id) {
-
+        employeeDAO.remove(id);
     }
 
     @Override
