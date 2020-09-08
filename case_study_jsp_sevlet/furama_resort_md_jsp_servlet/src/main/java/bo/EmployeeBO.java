@@ -13,6 +13,6 @@ public interface EmployeeBO {
 
     int update(Employee employee);
     void remove(int id);
-    boolean validateId();
+    boolean validateMKH(String string);
     int nextId();
 }

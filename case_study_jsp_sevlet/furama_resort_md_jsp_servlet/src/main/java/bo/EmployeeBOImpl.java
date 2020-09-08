@@ -5,6 +5,8 @@ import dao.EmployeeDAOImpl;
 import model.Employee;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EmployeeBOImpl implements EmployeeBO {
     EmployeeDAO employeeDAO=new EmployeeDAOImpl();
@@ -34,8 +36,14 @@ public class EmployeeBOImpl implements EmployeeBO {
     }
 
     @Override
-    public boolean validateId() {
-        return false;
+    public boolean validateMKH(String string) {
+
+        String regexMKH = "[D][V][0-9]{4}";
+        Pattern pattern = Pattern.compile(regexMKH);
+        Matcher matcher = pattern.matcher(string);
+        if (matcher.matches()){
+            return true;
+        }else return false;
     }
 
     @Override

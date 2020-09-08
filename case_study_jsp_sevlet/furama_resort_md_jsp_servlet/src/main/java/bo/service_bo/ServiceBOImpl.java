@@ -1,19 +1,23 @@
 package bo.service_bo;
 
+import dao.service_dao.ServiceDAO;
+import dao.service_dao.ServiceDAOImpl;
 import model.Service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ServiceBOImpl implements ServiceBO{
-    ServiceBO serviceBO = new ServiceBOImpl();
+    ServiceDAO serviceDAO = new ServiceDAOImpl();
     @Override
     public List<Service> findAll() {
-        return null;
+        return serviceDAO.findAll();
     }
 
     @Override
     public void save(Service service) {
-
+        serviceDAO.save(service);
     }
 
     @Override
@@ -32,8 +36,14 @@ public class ServiceBOImpl implements ServiceBO{
     }
 
     @Override
-    public boolean validateId() {
-        return false;
+    public boolean validateMKH(String string) {
+
+        String regexMKH = "[D][V][0-9]{4}";
+        Pattern pattern = Pattern.compile(regexMKH);
+        Matcher matcher = pattern.matcher(string);
+        if (matcher.matches()){
+            return true;
+        }else return false;
     }
 
     @Override

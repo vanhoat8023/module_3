@@ -13,6 +13,7 @@ public interface CustomerBO {
 
     int update(Customer customer);
     void remove(int id);
-    boolean validateId();
+    boolean validateMKH(String string);
+    boolean validateSDT(String string);
     int nextId();
 }

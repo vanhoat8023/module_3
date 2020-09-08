@@ -13,6 +13,6 @@ public interface ServiceBO {
 
     int update(Service service);
     void remove(int id);
-    boolean validateId();
+    boolean validateMKH(String string);
     int nextId();
 }

@@ -168,7 +168,7 @@
                 <div class="table-wrapper">
                     <div class="table-title">
                         <div class="row">
-                            <div class="col-sm-7"><h2>Employee</h2></div>
+                            <div class="col-sm-7"><h2>Service</h2></div>
                             <div class="col-sm-2">
                                 <a href="/service?action=create">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
@@ -203,11 +203,11 @@
                                 <td>${service.name}</td>
                                 <td>${service.area}</td>
                                 <td>${service.cost}</td>
-                                <td>${service.max_people}</td>
-                                <td>${service.standard_room}</td>
-                                <td>${service.description_other_convenience}</td>
-                                <td>${service.pool_area}</td>
-                                <td>${service.number_of_floors}</td>
+                                <td>${service.maxPeople}</td>
+                                <td>${service.standardRoom}</td>
+                                <td>${service.descriptionOtherConvenience}</td>
+                                <td>${service.poolArea}</td>
+                                <td>${service.numberOfFloors}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

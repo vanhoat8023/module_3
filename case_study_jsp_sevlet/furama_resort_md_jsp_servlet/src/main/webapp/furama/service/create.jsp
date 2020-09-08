@@ -1,11 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 9/8/2020
-  Time: 4:39 AM
+  Time: 10:27 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,44 +13,44 @@
 </head>
 <body>
 <form method="post">
-    <p>
-        <a href="/customer?action=listCustomer">back to menu</a>
-    </p>
     <table>
         <input type="hidden" value="create" name="action" >
+        <c:if test="${error!=''}"><p>${error}</p></c:if>
         <tr>
             <td>ID:</td>
             <td><input type="text" name="id_cr"></td>
         </tr>
-
         <tr>
             <td>Name:</td>
             <td><input type="text" name="1"></td>
-            <p><c:if test="${error!=''}">${error}</c:if></p>
         </tr>
         <tr>
-            <td>birthday:</td>
+            <td>Area:</td>
             <td><input type="text" name="2" ></td>
         </tr>
         <tr>
-            <td>gender:</td>
+            <td>Cost:</td>
             <td><input type="text" name="3"></td>
         </tr>
         <tr>
-            <td>phone:</td>
+            <td>max_people:</td>
             <td><input type="text" name="4"></td>
         </tr>
         <tr>
-            <td>Email:</td>
+            <td>standard:</td>
             <td><input type="text" name="5" ></td>
         </tr>
         <tr>
-            <td>Address:</td>
+            <td>description_other_convenience:</td>
             <td><input type="text" name="6" ></td>
         </tr>
         <tr>
-            <td>Id-card:</td>
+            <td>pool_area:</td>
             <td><input type="text" name="7" ></td>
+        </tr>
+        <tr>
+            <td>number_of_floors:</td>
+            <td><input type="text" name="8" ></td>
         </tr>
         <tr>
             <td><span>Update?</span></td>

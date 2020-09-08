@@ -48,7 +48,7 @@
                     <a class="nav-link" href="/service?action=listService">Service</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Contract</a>
+                    <a class="nav-link disabled" href="/contract?action=listContract">Contract</a>
                 </li>
             </ul>
         </div>

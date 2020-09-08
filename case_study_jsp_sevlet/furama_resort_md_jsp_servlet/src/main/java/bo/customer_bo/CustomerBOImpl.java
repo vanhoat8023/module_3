@@ -5,6 +5,8 @@ import dao.customer_dao.CustomerDAOImpl;
 import model.Customer;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CustomerBOImpl implements CustomerBO {
     CustomerDAO customerDAO = new CustomerDAOImpl();
@@ -34,9 +36,22 @@ public class CustomerBOImpl implements CustomerBO {
     }
 
     @Override
-    public boolean validateId() {
-        return false;
+    public boolean validateMKH(String string) {
+        String regexMKH = "[K][H][0-9]{4}";
+        Pattern pattern = Pattern.compile(regexMKH);
+        Matcher matcher = pattern.matcher(string);
+        if (matcher.matches()){
+            return true;
+        }else return false;
     }
+
+    @Override
+    public boolean validateSDT(String string) {
+        String regexSDT = "[090|091|]"
+    }
+
+    ;
+
 
     @Override
     public int nextId() {

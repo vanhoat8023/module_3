@@ -62,8 +62,22 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("5");
         String address = request.getParameter("6");
         String id_card = request.getParameter("7");
-        customerBO.save(new Customer(id,name,birthday,gender,id_card,phone,email,address));
-        showListCustomer(request,response);
+        if (customerBO.validateMKH(name)){
+            customerBO.save(new Customer(id,name,birthday,gender,id_card,phone,email,address));
+            showListCustomer(request,response);
+        }else {
+            String error="nhap sai ban hay nhap lai!";
+            request.setAttribute("error",error);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/furama/customer/createCustomer.jsp");
+            try {
+                dispatcher.forward(request,response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
