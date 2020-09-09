@@ -16,6 +16,11 @@ public class EmployeeBOImpl implements EmployeeBO {
     }
 
     @Override
+    public List<Employee> findByName(String string) {
+        return employeeDAO.findByName(string);
+    }
+
+    @Override
     public void save(Employee employee) {
         employeeDAO.save(employee);
     }

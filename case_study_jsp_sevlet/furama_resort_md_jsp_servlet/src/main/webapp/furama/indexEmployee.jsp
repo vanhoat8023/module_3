@@ -50,6 +50,9 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="/contract?action=listContract">Contract</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/detail?action=listContract">Contract_detail</a>
+                </li>
             </ul>
         </div>
         <form class="form-inline my-2 my-lg-0" style="float: right">

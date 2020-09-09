@@ -175,10 +175,11 @@
                                 </a>
                             </div>
                             <div class="col-sm-3">
-                                <div class="search-box">
-                                    <i class="material-icons">&#xE8B6;</i>
-                                    <input type="text" class="form-control" placeholder="Search&hellip;">
-                                </div>
+                                <form class="form-inline my-2 my-lg-0" style="float: right" action="/employee" method="post">
+                                    <input type="hidden" name="action" value="search">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>
                             </div>
                         </div>
                     </div>

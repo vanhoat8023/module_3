@@ -81,6 +81,42 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
+    public List<Customer> findByName(String string) {
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Customer> eList = new ArrayList<>();
+        Customer el = null;
+
+        if (connection != null) {
+            try {
+                statement = connection.prepareStatement("SELECT * FROM  customer WHERE `customer_name` like ?");
+                statement.setString(1, "%" + string + "%");
+                resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    el = new Customer();
+                    el.setId(resultSet.getInt("customer_id"));
+                    el.setCustomer_name(resultSet.getString("customer_name"));
+                    el.setCustomer_birthday(resultSet.getString("customer_birthday"));
+                    el.setCustomer_gender(resultSet.getString("customer_gender"));
+                    el.setCustomer_id_card(resultSet.getString("customer_id_card"));
+                    el.setCustomer_phone(resultSet.getString("customer_phone"));
+                    el.setCustomer_email(resultSet.getString("customer_email"));
+                    el.setCustomer_address(resultSet.getString("customer_address"));
+
+                    eList.add(el);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                DBConnection.close();
+            }
+        }
+        return eList;
+    }
+
+    @Override
     public int update(Customer customer) {
         Connection connection = DBConnection.getConnection();
         CallableStatement callableStatement = null;

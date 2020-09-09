@@ -1,5 +1,6 @@
 package dao;
 
+import model.Customer;
 import model.Employee;
 
 import java.sql.*;
@@ -145,5 +146,41 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public Employee findById(int id) {
         return findAll().get(id-1);
+    }
+
+    @Override
+    public List<Employee> findByName(String string) {
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Employee> eList = new ArrayList<>();
+        Employee el = null;
+
+        if (connection != null) {
+            try {
+                statement = connection.prepareStatement("SELECT * FROM  employee WHERE `employee_name` like ?");
+                statement.setString(1, "%" + string + "%");
+                resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    el = new Employee();
+                    el.setId(resultSet.getInt("employee_id"));
+                    el.setName(resultSet.getString("employee_name"));
+                    el.setBirthday(resultSet.getString("employee_birthday"));
+                    el.setId_card(resultSet.getString("employee_id_card"));
+                    el.setSalary(resultSet.getString("employee_salary"));
+                    el.setPhone(resultSet.getString("employee_phone"));
+                    el.setEmail(resultSet.getString("employee_email"));
+                    el.setAddress(resultSet.getString("employee_address"));
+
+                    eList.add(el);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                DBConnection.close();
+            }
+        }
+        return eList;
     }
 }

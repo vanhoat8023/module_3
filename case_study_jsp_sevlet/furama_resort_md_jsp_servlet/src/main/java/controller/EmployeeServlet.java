@@ -2,6 +2,7 @@ package controller;
 
 import bo.EmployeeBO;
 import bo.EmployeeBOImpl;
+import model.Customer;
 import model.Employee;
 
 import javax.servlet.RequestDispatcher;
@@ -34,6 +35,23 @@ public class EmployeeServlet extends HttpServlet {
             case "delete":
                 deleteEmployee(request,response);
                 break;
+            case "search":
+                searchEmployee(request,response);
+                break;
+        }
+    }
+
+    private void searchEmployee(HttpServletRequest request, HttpServletResponse response) {
+        String str = request.getParameter("keyword");
+        List<Employee> employeeList = employeeBO.findByName(str);
+        request.setAttribute("listEmployee", employeeList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/furama/listEmployee.jsp");
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

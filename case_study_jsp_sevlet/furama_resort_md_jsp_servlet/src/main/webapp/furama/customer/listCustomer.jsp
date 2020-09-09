@@ -175,10 +175,20 @@
                                 </a>
                             </div>
                             <div class="col-sm-3">
-                                <div class="search-box">
-                                    <i class="material-icons">&#xE8B6;</i>
-                                    <input type="text" class="form-control" placeholder="Search&hellip;">
-                                </div>
+                                <form method="post" action="/customer">
+                                    <input type="hidden" value="search" name="action">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="search-box">
+                                                <i class="material-icons">&#xE8B6;</i>
+                                                <input type="text" name="keyword" class="form-control" placeholder="Search&hellip;">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

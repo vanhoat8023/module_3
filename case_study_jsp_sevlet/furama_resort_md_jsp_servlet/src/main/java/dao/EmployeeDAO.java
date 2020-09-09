@@ -10,6 +10,7 @@ public interface EmployeeDAO {
     void save(Employee employee);
 
     Employee findById(int id);
+    List<Employee> findByName(String string);
 
     int update(Employee employee);
     boolean remove(int id);

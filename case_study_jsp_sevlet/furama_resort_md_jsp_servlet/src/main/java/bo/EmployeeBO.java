@@ -7,6 +7,7 @@ import java.util.List;
 public interface EmployeeBO {
     List<Employee> findAll();
 
+    List<Employee> findByName(String string);
     void save(Employee employee);
 
     Employee findById(int id);

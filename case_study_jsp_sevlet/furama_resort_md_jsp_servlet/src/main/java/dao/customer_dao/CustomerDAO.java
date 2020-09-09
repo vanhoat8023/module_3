@@ -11,7 +11,7 @@ public interface CustomerDAO {
     void save(Customer customer);
 
     Customer findById(int id);
-
+    List<Customer> findByName(String string);
     int update(Customer customer);
     boolean remove(int id);
     boolean validateId();

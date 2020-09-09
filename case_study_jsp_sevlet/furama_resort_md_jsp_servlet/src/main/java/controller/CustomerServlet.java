@@ -31,6 +31,23 @@ public class CustomerServlet extends HttpServlet {
             case "delete":
                 deleteCustomer(request,response);
                 break;
+            case "search":
+                searchCustomer(request,response);
+                break;
+        }
+    }
+
+    private void searchCustomer(HttpServletRequest request, HttpServletResponse response) {
+        String str = request.getParameter("keyword");
+        List<Customer> customerList = customerBO.findByName(str);
+        request.setAttribute("listCustomer", customerList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/furama/customer/listCustomer.jsp");
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

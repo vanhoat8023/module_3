@@ -26,6 +26,11 @@ public class CustomerBOImpl implements CustomerBO {
     }
 
     @Override
+    public List<Customer> findByName(String string) {
+      return customerDAO.findByName(string);
+    }
+
+    @Override
     public int update(Customer customer) {
         return customerDAO.update(customer);
     }
@@ -47,7 +52,12 @@ public class CustomerBOImpl implements CustomerBO {
 
     @Override
     public boolean validateSDT(String string) {
-        String regexSDT = "[090|091|]"
+        String regexSDT = "[090|091|(+84)90|(+84)91][0-9]{4}";
+        Pattern pattern = Pattern.compile(regexSDT);
+        Matcher matcher = pattern.matcher(string);
+        if (matcher.matches()){
+            return true;
+        }else return false;
     }
 
     ;

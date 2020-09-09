@@ -10,6 +10,7 @@ public interface CustomerBO {
     void save(Customer customer);
 
     Customer findById(int id);
+    List<Customer> findByName(String string);
 
     int update(Customer customer);
     void remove(int id);
